@@ -745,10 +745,10 @@ Each update of the customer is generating a new record in <em>store_customer</em
 Bottom line the described approach is not scalable.</p>
 <h3 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h3>
 <p>To be able to always query the latest state of the record and keep the amount of historical records limited, MyStore introduced the usage of <a href="https://hudi.apache.org/">Apache Hudi</a>.
-Glue <em>clean</em> job is writing directly to Amazon S3 in Hudi format. To have more details about the write implementation and Hudi configuration please look at <a href="TODO_add_link_to_file">raw2clean_hudi.py</a>.</p>
+Glue <em>clean</em> job is writing directly to Amazon S3 in Hudi format. To have more details about the write implementation and Hudi configuration please look at <a href="https://github.com/aws-samples/aws-analytics-reference-architecture/blob/main/batch/glue-scripts/raw2clean_hudi.py">raw2clean_hudi.py</a>.</p>
 <p>Hudi format is no supported by Glue Crawler, nevertheless Hudi is supporting the synchronisation with Hive metastore out of the box.
-To prevent Glue Crawler failure MyStore configured <em>store_customer</em> and <em>store_csutomer_address</em> tables as exclusions <a href="TODO_add_link_to_file">crawler.py</a>.
-To enable Hive metastore sync, the AWS Glue job is using the Hudi configuration <em>hoodie.datasource.hive_sync</em> in <a href="TODO_add_link_to_file">raw2clean_hudi.py</a>. You can find more details about Hudi configuration on <a href="https://hudi.apache.org/docs/configurations.html">this page</a>.</p>
+To prevent Glue Crawler failure MyStore configured <em>store_customer</em> and <em>store_csutomer_address</em> tables as exclusions <a href="https://github.com/aws-samples/aws-analytics-reference-architecture/blob/main/batch/batch_cdk/crawler.py#L86">crawler.py</a>.
+To enable Hive metastore sync, the AWS Glue job is using the Hudi configuration <em>hoodie.datasource.hive_sync</em> in <a href="https://github.com/aws-samples/aws-analytics-reference-architecture/blob/main/batch/glue-scripts/raw2clean_hudi.py">raw2clean_hudi.py</a>. You can find more details about Hudi configuration on <a href="https://hudi.apache.org/docs/configurations.html">this page</a>.</p>
 <p>Hudi is managing the number of historical records automatically and limited according to the configuration parameter <em>hoodie.cleaner.commits.retained</em>, which is configured to 10.</p>
 <p>Using Apache Hudi MyStore can guarantee that Redshift Spectrum lookup query performance is not affected by the number of historical updates in <em>store_customer</em> and <em>store_customer_address</em> tables and will always get the lately updated record.</p>
                 

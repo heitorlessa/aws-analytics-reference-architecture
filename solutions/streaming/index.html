@@ -721,7 +721,7 @@
 <h3 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h3>
 <p>Exactly once processing ensures that one streamed message is processed only once by the system, while exactly once delivery ensures that the result of processing appears only once in the destination systems.</p>
 <p>Although Kinesis Data Streams itself only provides at-least-once, the Kinesis Flink connector supports exactly-once.</p>
-<p>See https://ci.apache.org/projects/flink/flink-docs-stable/dev/connectors/guarantees.html for reference.</p>
+<p>See <a href="https://ci.apache.org/projects/flink/flink-docs-stable/dev/connectors/guarantees.html">Apache Flink documentation</a> for reference.</p>
 <p>Notice that the Elasticsearch connector only provides at-least-once guarantee.
 In the case of Elasticsearch, the solution is to provide a consistent document id so that a second copy will overwrite the first one instead of adding an additional entry.</p>
 <h2 id="use-avro-logical-types-with-kinesis-data-analytics">Use Avro logical types with Kinesis Data Analytics<a class="headerlink" href="#use-avro-logical-types-with-kinesis-data-analytics" title="Permanent link">&para;</a></h2>
